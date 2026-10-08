@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('aspirations', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 100);
-            $table->text('deskripsi')->nullable();
+            $table->string('title');
+            $table->text('description');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->enum('status', ['pending', 'reviewed', 'in_progress', 'resolved', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('aspirations');
     }
 };
