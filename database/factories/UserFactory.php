@@ -55,18 +55,25 @@ class UserFactory extends Factory
 
             return [
                 'name' => "$firstName $lastName",
-                'email' => strtolower($firstName . '.' . $lastName) . '@mhs.unsoed.ac.id',
+                'email' => strtolower($firstName.'.'.$lastName).'@mhs.unsoed.ac.id',
             ];
         });
     }
 
     /**
-     * Indicate that the user is an admin.
+     * Indicate that the user is an admin with @admin.unsoed.ac.id email.
      */
     public function admin(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'role' => 'admin',
-        ]);
+        return $this->state(function (array $attributes) {
+            $firstName = fake()->firstName();
+            $lastName = fake()->lastName();
+
+            return [
+                'role' => 'admin',
+                'name' => "$firstName $lastName",
+                'email' => strtolower($firstName.'.'.$lastName).'@admin.unsoed.ac.id',
+            ];
+        });
     }
 }

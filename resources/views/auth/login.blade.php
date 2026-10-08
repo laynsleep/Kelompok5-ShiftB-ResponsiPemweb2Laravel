@@ -23,7 +23,7 @@
         {{-- Login Card --}}
         <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <h2 class="text-lg font-semibold text-gray-900 mb-1">Masuk ke Akun</h2>
-            <p class="text-sm text-gray-500 mb-6">Gunakan email mahasiswa <span class="font-medium text-indigo-600">@mhs.unsoed.ac.id</span></p>
+            <p class="text-sm text-gray-500 mb-6">Gunakan email <span class="font-medium text-indigo-600">@mhs.unsoed.ac.id</span> (mahasiswa) atau <span class="font-medium text-indigo-600">@admin.unsoed.ac.id</span> (admin)</p>
 
             <form action="{{ route('login') }}" method="POST" class="space-y-5">
                 @csrf

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -21,9 +22,11 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (! str_ends_with($credentials['email'], '@mhs.unsoed.ac.id')) {
+        $allowedDomains = ['@mhs.unsoed.ac.id', '@admin.unsoed.ac.id'];
+
+        if (! Str::endsWith($credentials['email'], $allowedDomains)) {
             throw ValidationException::withMessages([
-                'email' => ['Email harus menggunakan domain @mhs.unsoed.ac.id'],
+                'email' => ['Email harus menggunakan domain @mhs.unsoed.ac.id atau @admin.unsoed.ac.id'],
             ]);
         }
 
@@ -44,6 +47,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(route('login'));
     }
 }
