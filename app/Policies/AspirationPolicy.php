@@ -16,4 +16,9 @@ class AspirationPolicy
     {
         return $user->isAdmin() || $aspiration->user_id === $user->id;
     }
+
+    public function updateStatus(User $user, Aspiration $aspiration): bool
+    {
+        return $user->isAdmin();
+    }
 }

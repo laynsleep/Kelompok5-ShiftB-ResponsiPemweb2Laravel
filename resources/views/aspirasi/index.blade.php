@@ -155,19 +155,8 @@
 
                             {{-- Status Badge & Actions --}}
                             <div class="flex flex-col items-end gap-2 shrink-0">
-                                @php
-                                    $statusColors = [
-                                        'pending' => 'bg-yellow-50 text-yellow-700 ring-yellow-600/20',
-                                        'reviewed' => 'bg-blue-50 text-blue-700 ring-blue-600/20',
-                                        'in_progress' => 'bg-purple-50 text-purple-700 ring-purple-600/20',
-                                        'resolved' => 'bg-green-50 text-green-700 ring-green-600/20',
-                                        'rejected' => 'bg-red-50 text-red-700 ring-red-600/20',
-                                    ];
-                                    $colorClass = $statusColors[$aspiration->status->value] ?? 'bg-gray-50 text-gray-700 ring-gray-600/20';
-                                @endphp
-                                <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset {{ $colorClass }}">
-                                    {{ $aspiration->status->label() }}
-                                </span>
+                                {{-- Status badge (admin dapat mengkliknya untuk mengubah status) --}}
+                                @include('aspirasi.partials.status-badge', ['aspiration' => $aspiration])
 
                                 {{-- Aksi: Edit & Hapus --}}
                                 <div class="flex items-center gap-1">

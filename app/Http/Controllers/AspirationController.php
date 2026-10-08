@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class AspirationController extends Controller
 {
@@ -144,6 +145,22 @@ class AspirationController extends Controller
         $aspiration->delete();
 
         return back()->with('success', 'Aspirasi berhasil dihapus.');
+    }
+
+    /**
+     * Update the status of the given aspiration (admin only).
+     */
+    public function updateStatus(Request $request, Aspiration $aspiration): RedirectResponse
+    {
+        Gate::authorize('updateStatus', $aspiration);
+
+        $validated = $request->validate([
+            'status' => ['required', 'string', Rule::enum(AspirationStatus::class)],
+        ]);
+
+        $aspiration->update(['status' => $validated['status']]);
+
+        return back()->with('success', 'Status aspirasi berhasil diperbarui.');
     }
 
     /**

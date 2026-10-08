@@ -20,5 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('aspirasi', AspirationController::class)
         ->parameters(['aspirasi' => 'aspiration']);
 
+    Route::patch('/aspirasi/{aspiration}/status', [AspirationController::class, 'updateStatus'])->name('aspirasi.status.update');
+
     Route::post('/aspirasi/{aspiration}/comments', [CommentController::class, 'store'])->name('aspirasi.comments.store');
 });
