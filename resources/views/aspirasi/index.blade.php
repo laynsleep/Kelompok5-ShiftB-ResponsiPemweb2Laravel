@@ -25,11 +25,11 @@
         @endphp
         <div class="mb-6 border-b border-gray-200">
             <nav class="flex items-center gap-6" aria-label="Navigasi daftar aspirasi">
-                <a href="{{ route('aspirasi', $tabQuery) }}"
+                <a href="{{ route('aspirasi.index', $tabQuery) }}"
                     class="inline-flex items-center gap-1.5 border-b-2 px-1 pb-3 text-sm font-medium transition {{ ! $isMineTab ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
                     Semua Aspirasi
                 </a>
-                <a href="{{ route('aspirasi', array_merge($tabQuery, ['mine' => 1])) }}"
+                <a href="{{ route('aspirasi.index', array_merge($tabQuery, ['mine' => 1])) }}"
                     class="inline-flex items-center gap-1.5 border-b-2 px-1 pb-3 text-sm font-medium transition {{ $isMineTab ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -51,7 +51,7 @@
 
         {{-- Filter & Search Section --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
-            <form action="{{ route('aspirasi', request()->boolean('mine') ? ['mine' => 1] : []) }}" method="GET" id="filter-form" class="flex flex-col md:flex-row gap-3 items-center">
+            <form action="{{ route('aspirasi.index', request()->boolean('mine') ? ['mine' => 1] : []) }}" method="GET" id="filter-form" class="flex flex-col md:flex-row gap-3 items-center">
                 
                 {{-- Search Input (Auto Submit saat mengetik) --}}
                 <div class="flex-1 w-full">
@@ -98,7 +98,7 @@
 
                     {{-- Reset Icon Button (Tampil jika filter sedang aktif) --}}
                     @if(request()->anyFilled(['search', 'status', 'category']))
-                        <a href="{{ route('aspirasi', request()->boolean('mine') ? ['mine' => 1] : []) }}" title="Reset Semua Filter" class="inline-flex items-center justify-center p-2.5 border border-gray-300 rounded-lg text-gray-400 bg-white hover:bg-red-50 hover:text-red-500 hover:border-red-200 focus:outline-none transition shrink-0">
+                        <a href="{{ route('aspirasi.index', request()->boolean('mine') ? ['mine' => 1] : []) }}" title="Reset Semua Filter" class="inline-flex items-center justify-center p-2.5 border border-gray-300 rounded-lg text-gray-400 bg-white hover:bg-red-50 hover:text-red-500 hover:border-red-200 focus:outline-none transition shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>

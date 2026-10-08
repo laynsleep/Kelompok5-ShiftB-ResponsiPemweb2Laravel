@@ -82,7 +82,7 @@ class AspirationController extends Controller
         ]);
         $aspiration->categories()->sync($categoryIds);
 
-        return redirect()->route('aspirasi')->with('success', 'Aspirasi berhasil disampaikan.');
+        return redirect()->route('aspirasi.index')->with('success', 'Aspirasi berhasil disampaikan.');
     }
 
     /**

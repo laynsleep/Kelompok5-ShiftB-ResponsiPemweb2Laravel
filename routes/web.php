@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\AspirationController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('aspirasi.index');
 });
 
 Route::middleware('guest')->group(function () {
@@ -16,5 +17,8 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/aspirasi', [AspirationController::class, 'index'])->name('aspirasi');
+    Route::resource('aspirasi', AspirationController::class)
+        ->parameters(['aspirasi' => 'aspiration']);
+
+    Route::post('/aspirasi/{aspiration}/comments', [CommentController::class, 'store'])->name('aspirasi.comments.store');
 });
