@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Category;
 use App\Models\Aspiration;
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Upvote;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->admin()->create([
             'name' => 'Admin User',
             'username' => 'admin_utama',
-            'email' => 'admin@unsoed.ac.id',
+            'email' => 'admin.user@admin.unsoed.ac.id',
         ]);
 
         // 2. Buat akun dummy mahasiswa spesifik untuk memudahkan testing login
