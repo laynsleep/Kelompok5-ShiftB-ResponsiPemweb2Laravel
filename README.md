@@ -1,58 +1,71 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Website Penampung Aspirasi Mahasiswa
+> Satu Suara, Benahi Kondisi
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## 📌 Informasi Kelompok
+- **Nomor Kelompok:** Kelompok 05
+- **Shift Praktikum:** Shift B
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 👥 Anggota Kelompok
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| No |         Nama Lengkap         |    NIM    | Shift Awal | Shift Akhir | Jobdesk / Kontribusi | Link Video Penjelasan |
+|----|------------------------------|-----------|------------|-------------|----------------------|-----------------------|
+| 1  | Chaedar Ali Amrulloh         | H1H024044 | Shift B    | Shift B     | [Jobdesk Fitur] | [YouTube/Drive](https://...) |
+| 2  | Bintang Nugraha Putra        | H1H024045 | [Shift Awal] | Shift B   | [Jobdesk Fitur] | [YouTube/Drive](https://...) |
+| 3  | Gerard Roland Kusuma Sarwoko | H1H024047 | [Shift Awal] | Shift B   | [Jobdesk Fitur] | [YouTube/Drive](https://...) |
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📖 Deskripsi Aplikasi
+Aspirasi dibutuhkan untuk menunjang kesejahteraan di masa yang akan datang. Suara aspirasi yang terpecah sulit untuk mendapatkan perhatian umum, Website yang kami kembangkan bertujuan untuk menyatukan suara-suara aspirasi agar lebih banyak didengar dan diakui umum dengan harapan aspirasi tersebut dapat terpenuhi. Kami harap mahasiswa bisa menggunakan website kami sebagai platform untuk menyuarakan hal yang mengganjal di benak pikiran.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## ⚙️ Penjelasan Teknis
 
-## Agentic Development
+### 1. Teknologi (Tech Stack)
+- **Backend:** Laravel 13 (PHP 8.4.12)
+- **Frontend:** Blade / Tailwind CSS / Bootstrap / JavaScript
+- **Database:** MySQL 
+- **Library / Package:** [Contoh: Laravel Breeze, DomPDF, Filament, dll.]
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 2. Fitur Utama & Modul
+- **Autentikasi & Otorisasi:** [Role admin, user, middleware guard]
+- **[Modul 1]:** [CRUD data, validasi, upload file]
+- **[Modul 2]:** [Fitur transaksi, reporting, notifikasi]
+
+### 3. Skema Data Singkat
+- `users` (1 : N) `aspirations`
+- `users` (1 : N) `comments`
+- `aspirations` (1 : N) `comments`
+- `users` (M : N) `upvotes`
+- `categories` (M : N) `aspirations`
+- `aspirations` (M : N) `upvotes`
+
+---
+
+## 🚀 Panduan Instalasi Lokal
 
 ```bash
-composer require laravel/boost --dev
+# Clone repository
+git clone https://github.com/laynsleep/Kelompok5-ShiftB-ResponsiPemweb2Laravel.git
+cd Kelompok5-ShiftB-ResponsiPemweb2Laravel
 
-php artisan boost:install
+# Install dependensi PHP & Node
+composer install
+npm install
+
+# Konfigurasi Environment
+cp .env.example .env
+php artisan key:generate
+
+# Konfigurasi database di file .env, lalu migrasi & seed
+php artisan migrate --seed
+
+# Jalankan development server
+php artisan serve
+npm run dev
 ```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
