@@ -43,4 +43,30 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /**
+     * Indicate that the user is a mahasiswa with @mhs.unsoed.ac.id email.
+     */
+    public function mahasiswa(): static
+    {
+        return $this->state(function (array $attributes) {
+            $firstName = fake()->firstName();
+            $lastName = fake()->lastName();
+
+            return [
+                'name' => "$firstName $lastName",
+                'email' => strtolower($firstName . '.' . $lastName) . '@mhs.unsoed.ac.id',
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the user is an admin.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin',
+        ]);
+    }
 }
