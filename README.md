@@ -28,12 +28,12 @@ Aspirasi dibutuhkan untuk menunjang kesejahteraan di masa yang akan datang. Suar
 
 ### 1. Teknologi (Tech Stack)
 - **Backend:** Laravel 13 (PHP 8.4.12)
-- **Frontend:** Blade / Tailwind CSS / Bootstrap / JavaScript
+- **Frontend:** Blade, Tailwind CSS, JavaScript
 - **Database:** MySQL 
 - **Library / Package:** [Contoh: Laravel Breeze, DomPDF, Filament, dll.]
 
 ### 2. Fitur Utama & Modul
-- **Autentikasi & Otorisasi:** [Role admin, user, middleware guard]
+- **Autentikasi & Otorisasi:** Role admin, mahasiswa
 - **[Modul 1]:** [CRUD data, validasi, upload file]
 - **[Modul 2]:** [Fitur transaksi, reporting, notifikasi]
 
