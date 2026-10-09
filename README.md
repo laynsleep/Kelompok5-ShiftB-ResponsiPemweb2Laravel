@@ -65,6 +65,8 @@ Aspirasi dibutuhkan untuk menunjang kesejahteraan di masa yang akan datang. Suar
     - Interaksi ini membantu menentukan aspirasi yang paling banyak mendapat perhatian
 
 - **Modul Admin / Dashboard:**
+    - Admin dapat mengelola kategori (CRUD kategori, hanya admin) di `/admin/categories`
+    - Admin dapat menjadikan pengguna lain sebagai admin (atau menurunkannya) lewat checkbox di `/admin/users`; admin tidak bisa menurunkan role akunnya sendiri
     - Admin dapat melihat seluruh aspirasi masuk dari semua mahasiswa
     - Admin dapat menilai, menanggapi, mengubah status, dan mengelola data aspirasi
     - Dashboard admin menampilkan statistik seperti total aspirasi, aspirasi aktif, dan aspirasi selesai
@@ -107,3 +109,45 @@ php artisan migrate --seed
 php artisan serve
 npm run dev
 ```
+
+---
+
+## 🔑 Akun Pengujian
+
+Dibuat oleh `php artisan migrate --seed` (password semua akun: `password`).
+
+| Role  | Email                            |
+| ----- | -------------------------------- |
+| Admin | `admin.user@admin.unsoed.ac.id`  |
+| User  | `mahasiswa.dummy@mhs.unsoed.ac.id` |
+
+**Link deployment:** [ISI LINK HOSTING DI SINI](https://...)
+
+---
+
+## 📡 Dokumentasi API
+
+Base URL: `/api`. Endpoint ber-Auth memakai header `Authorization: Bearer <access_token>` (Laravel Sanctum).
+
+| Method | Endpoint | Keterangan | Auth |
+| ------ | -------- | ---------- | ---- |
+| POST | `/api/register` | Registrasi, mengembalikan token | No |
+| POST | `/api/login` | Login, mengembalikan token | No |
+| GET | `/api/user` | Profil user yang sedang login | Yes |
+| POST | `/api/logout` | Logout (hapus token aktif) | Yes |
+| GET | `/api/aspirations` | Daftar aspirasi (pagination, filter `category_id`) | No |
+| GET | `/api/aspirations/{id}` | Detail aspirasi | No |
+| POST | `/api/aspirations` | Membuat aspirasi | Yes |
+| PUT | `/api/aspirations/{id}` | Ubah aspirasi (pemilik/admin; field `status` hanya admin) | Yes |
+| DELETE | `/api/aspirations/{id}` | Hapus aspirasi (pemilik/admin) | Yes |
+| GET | `/api/categories` | Daftar kategori (pagination, `?search=`) | No |
+| GET | `/api/categories/{id}` | Detail kategori | No |
+| POST | `/api/categories` | Membuat kategori | Yes (Admin) |
+| PUT | `/api/categories/{id}` | Ubah kategori | Yes (Admin) |
+| DELETE | `/api/categories/{id}` | Hapus kategori | Yes (Admin) |
+| GET | `/api/users` | Daftar user (`?search=`, `?role=user\|admin`) | Yes (Admin) |
+| PATCH | `/api/users/{id}/role` | Ubah role user (`{"role": "admin"}` / `"user"`) | Yes (Admin) |
+| GET | `/api/comments`, `/api/comments/{id}` | Mengambil komentar | No |
+| POST / PUT / DELETE | `/api/comments`, `/api/comments/{id}` | Mengelola komentar | Yes |
+| GET | `/api/upvotes`, `/api/upvotes/{id}` | Mengambil upvote | No |
+| POST / DELETE | `/api/upvotes`, `/api/upvotes/{id}` | Memberi / membatalkan upvote | Yes |

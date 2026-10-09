@@ -25,6 +25,13 @@
                     </div>
 
                     <div class="flex items-center gap-4">
+                        @if (Auth::user()->isAdmin())
+                            <a href="{{ route('admin.categories.index') }}"
+                                class="text-sm font-medium {{ request()->routeIs('admin.categories.*') ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600' }} transition">Kategori</a>
+                            <a href="{{ route('admin.users.index') }}"
+                                class="text-sm font-medium {{ request()->routeIs('admin.users.*') ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600' }} transition">Pengguna</a>
+                            <span class="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-semibold text-indigo-700">Admin</span>
+                        @endif
                         <span class="text-sm text-gray-600">{{ Auth::user()->name }}</span>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

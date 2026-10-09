@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\UpvoteController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:6,1')->group(function () {
@@ -22,7 +23,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
 
     Route::apiResource('aspirations', AspirationController::class)->except(['index', 'show']);
-    Route::apiResource('categories', CategoryController::class)->except(['index', 'show']);
     Route::apiResource('comments', CommentController::class)->except(['index', 'show']);
     Route::apiResource('upvotes', UpvoteController::class)->only(['store', 'destroy']);
+
+    // Khusus admin
+    Route::middleware('admin')->group(function () {
+        Route::apiResource('categories', CategoryController::class)->except(['index', 'show']);
+
+        Route::get('/users', [UserController::class, 'index'])->name('api.users.index');
+        Route::patch('/users/{user}/role', [UserController::class, 'updateRole'])->name('api.users.role');
+    });
 });

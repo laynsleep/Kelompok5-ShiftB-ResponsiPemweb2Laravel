@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Category;
-use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
@@ -28,7 +27,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'name' => 'Dosen & Pelayanan Admin',
-                'description' => 'Evaluasi kineja pengajaran dosen serta mutu pelayanan staf tata usaha (TU) dan administrasi.',
+                'description' => 'Evaluasi kinerja pengajaran dosen serta mutu pelayanan staf tata usaha (TU) dan administrasi.',
             ],
             [
                 'name' => 'Kemahasiswaan & Ormawa',
@@ -45,11 +44,10 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
+            // Kunci pencarian hanya 'name' agar seeder idempotent (aman dijalankan ulang)
             Category::updateOrCreate(
-                [
-                    'name' => $category['name'],
-                    'description' => $category['description'],
-                ]
+                ['name' => $category['name']],
+                ['description' => $category['description']],
             );
         }
     }

@@ -71,6 +71,11 @@ class AspirationController extends Controller
     {
         Gate::authorize('update', $aspiration);
 
+        // Status hanya boleh diubah admin; pemilik aspirasi tidak boleh menandai aspirasinya "resolved".
+        if ($request->has('status')) {
+            Gate::authorize('updateStatus', $aspiration);
+        }
+
         $validated = $request->validate([
             'title' => ['sometimes', 'required', 'string', 'max:255'],
             'description' => ['sometimes', 'required', 'string'],

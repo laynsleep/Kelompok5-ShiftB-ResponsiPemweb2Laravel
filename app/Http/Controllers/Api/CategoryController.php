@@ -3,44 +3,63 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CategoryController extends Controller
 {
-    public function index(): JsonResponse
+    /**
+     * Publik: daftar kategori (dengan pencarian ?search=).
+     */
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return response()->json(Category::query()->latest()->paginate(15));
+        $request->validate(['search' => ['sometimes', 'string', 'max:255']]);
+
+        $categories = Category::query()
+            ->withCount('aspirations')
+            ->when($request->filled('search'), fn ($q) => $q->where('name', 'like', '%'.$request->search.'%'))
+            ->orderBy('name')
+            ->paginate(15)
+            ->withQueryString();
+
+        return CategoryResource::collection($categories);
     }
 
-    public function store(Request $request): JsonResponse
+    /**
+     * Admin: membuat kategori.
+     */
+    public function store(StoreCategoryRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:categories,name'],
-            'description' => ['nullable', 'string'],
-        ]);
+        $category = Category::create($request->validated());
 
-        return response()->json(Category::create($validated), 201);
+        return (new CategoryResource($category))
+            ->response()
+            ->setStatusCode(201);
     }
 
-    public function show(Category $category): JsonResponse
+    public function show(Category $category): CategoryResource
     {
-        return response()->json($category->loadCount('aspirations'));
+        return new CategoryResource($category->loadCount('aspirations'));
     }
 
-    public function update(Request $request, Category $category): JsonResponse
+    /**
+     * Admin: memperbarui kategori.
+     */
+    public function update(UpdateCategoryRequest $request, Category $category): CategoryResource
     {
-        $validated = $request->validate([
-            'name' => ['sometimes', 'required', 'string', 'max:255', 'unique:categories,name,'.$category->id],
-            'description' => ['sometimes', 'nullable', 'string'],
-        ]);
+        $category->update($request->validated());
 
-        $category->update($validated);
-
-        return response()->json($category);
+        return new CategoryResource($category->loadCount('aspirations'));
     }
 
+    /**
+     * Admin: menghapus kategori (relasi pivot ikut terhapus via cascade).
+     */
     public function destroy(Category $category): JsonResponse
     {
         $category->delete();

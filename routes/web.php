@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AspirationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CommentController;
@@ -23,4 +25,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/aspirasi/{aspiration}/status', [AspirationController::class, 'updateStatus'])->name('aspirasi.status.update');
 
     Route::post('/aspirasi/{aspiration}/comments', [CommentController::class, 'store'])->name('aspirasi.comments.store');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('categories', AdminCategoryController::class)->except(['show']);
+
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::patch('/users/{user}/role', [AdminUserController::class, 'updateRole'])->name('users.role');
 });

@@ -144,4 +144,26 @@ class AspirationControllerTest extends TestCase
             ->assertUnprocessable()
             ->assertJsonValidationErrors(['category_id']);
     }
+
+    public function test_owner_cannot_change_aspiration_status_but_admin_can(): void
+    {
+        $owner = User::factory()->create();
+        $admin = User::factory()->admin()->create();
+        $aspiration = Aspiration::create([
+            'title' => 'Judul',
+            'description' => 'Deskripsi.',
+            'user_id' => $owner->id,
+        ]);
+
+        $this->withToken($owner->createToken('t')->plainTextToken)
+            ->putJson("/api/aspirations/{$aspiration->id}", ['status' => 'resolved'])
+            ->assertForbidden();
+
+        $this->app['auth']->forgetGuards();
+
+        $this->withToken($admin->createToken('t')->plainTextToken)
+            ->putJson("/api/aspirations/{$aspiration->id}", ['status' => 'resolved'])
+            ->assertOk()
+            ->assertJsonPath('status', 'resolved');
+    }
 }
