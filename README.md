@@ -15,9 +15,9 @@
 
 | No  | Nama Lengkap                 | NIM       | Shift Awal   | Shift Akhir | Jobdesk / Kontribusi                                                               | Link Video Penjelasan                                                 |
 | --- | ---------------------------- | --------- | ------------ | ----------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| 1   | Chaedar Ali Amrulloh         | H1H024044 | Shift B      | Shift B     | [Jobdesk Fitur]                                                                    | [YouTube/Drive](https://...)                                          |
+| 1   | Chaedar Ali Amrulloh         | H1H024044 | Shift B      | Shift B     | Autentikasi Web, CRUD aspirasi, Otorisasi (admin: edit/hapus aspirasi))            | [YouTube: https://youtu.be/9PEWFO2AD5Q](https://youtu.be/eG6-ZS2QKmo)                      |
 | 2   | Bintang Nugraha Putra        | H1H024045 | Shift B      | Shift B     | Backend (API route, Model, Migration, API Controller, lebih jelasnya ada di video) | [YouTube: https://youtu.be/9PEWFO2AD5Q](https://youtu.be/9PEWFO2AD5Q) |
-| 3   | Gerard Roland Kusuma Sarwoko | H1H024047 | Shift B | Shift B     | [Jobdesk Fitur]                                                                    | [YouTube/Drive](https://...)                                          |
+| 3   | Gerard Roland Kusuma Sarwoko | H1H024047 | Shift B | Shift B     | fitur admin (role user, CRUD kategori, seeder realistis)                                | [YouTube: https://youtu.be/9PEWFO2AD5Q](https://youtu.be/vc4n3dx6Njc)                                         |
 
 ---
 
@@ -121,7 +121,7 @@ Dibuat oleh `php artisan migrate --seed` (password semua akun: `password`).
 | Admin | `admin.user@admin.unsoed.ac.id`  |
 | User  | `mahasiswa.dummy@mhs.unsoed.ac.id` |
 
-**Link deployment:** [ISI LINK HOSTING DI SINI](https://...)
+**Link deployment:** [https://b5.athafa.cloud/](https://b5.athafa.cloud/)
 
 ---
 
