@@ -25,6 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/aspirasi/{aspiration}/status', [AspirationController::class, 'updateStatus'])->name('aspirasi.status.update');
 
     Route::post('/aspirasi/{aspiration}/comments', [CommentController::class, 'store'])->name('aspirasi.comments.store');
+
+    Route::post('/aspirasi/{aspiration}/upvote', [\App\Http\Controllers\UpvoteController::class, 'store'])->name('aspirasi.upvote');
+    Route::delete('/aspirasi/{aspiration}/upvote', [\App\Http\Controllers\UpvoteController::class, 'destroy'])->name('aspirasi.upvote.destroy');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

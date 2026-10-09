@@ -65,22 +65,48 @@
                 <div class="mt-3 text-sm leading-relaxed text-gray-700 whitespace-pre-line">{{ $aspiration->description }}</div>
             </div>
 
-            {{-- Stats --}}
-            <div class="mt-6 flex items-center gap-6 border-t border-gray-100 pt-4">
-                <div class="flex items-center gap-2 text-sm text-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-                    </svg>
-                    <span class="font-semibold text-gray-900">{{ $aspiration->upvotes_count }}</span>
-                    <span>upvote</span>
+            {{-- Stats & Upvote --}}
+            <div class="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-4">
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+                        </svg>
+                        <span class="font-semibold text-gray-900">{{ $aspiration->upvotes_count }}</span>
+                        <span>upvote</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span class="font-semibold text-gray-900">{{ $aspiration->comments_count }}</span>
+                        <span>komentar</span>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2 text-sm text-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                    <span class="font-semibold text-gray-900">{{ $aspiration->comments_count }}</span>
-                    <span>komentar</span>
-                </div>
+                @auth
+                    @if($aspiration->is_voted)
+                        <form method="POST" action="{{ route('aspirasi.upvote.destroy', $aspiration) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="inline-flex items-center gap-2 rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" />
+                                </svg>
+                                Sudah Di-upvote ({{ $aspiration->upvotes_count }})
+                            </button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('aspirasi.upvote', $aspiration) }}">
+                            @csrf
+                            <button type="submit" class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+                                </svg>
+                                Upvote Aspirasi ({{ $aspiration->upvotes_count }})
+                            </button>
+                        </form>
+                    @endif
+                @endauth
             </div>
         </article>
 

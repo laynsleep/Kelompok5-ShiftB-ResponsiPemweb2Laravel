@@ -20,6 +20,11 @@ class AspirationController extends Controller
     {
         $query = Aspiration::with(['author', 'categories'])
             ->withCount(['upvotes', 'comments'])
+            ->when(auth()->check(), function ($q) {
+                $q->withExists(['upvotes as is_voted' => function ($query) {
+                    $query->where('user_id', auth()->id());
+                }]);
+            })
             ->latest();
 
         // 1. Filter Search (Judul atau Deskripsi)
@@ -92,7 +97,10 @@ class AspirationController extends Controller
     public function show(Aspiration $aspiration): View
     {
         $aspiration->load(['author', 'categories'])
-            ->loadCount(['upvotes', 'comments']);
+            ->loadCount(['upvotes', 'comments'])
+            ->loadExists(['upvotes as is_voted' => function ($query) {
+                $query->where('user_id', auth()->id());
+            }]);
 
         $comments = $aspiration->comments()
             ->with('author:id,name,username')
