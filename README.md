@@ -121,7 +121,7 @@ Dibuat oleh `php artisan migrate --seed` (password semua akun: `password`).
 | Admin | `admin.user@admin.unsoed.ac.id`  |
 | User  | `mahasiswa.dummy@mhs.unsoed.ac.id` |
 
-**Link deployment:** [ISI LINK HOSTING DI SINI](https://...)
+**Link deployment:** [https://b5.athafa.cloud/](https://b5.athafa.cloud/)
 
 ---
 
