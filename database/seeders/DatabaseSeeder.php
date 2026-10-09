@@ -38,7 +38,11 @@ class DatabaseSeeder extends Seeder
         $allMahasiswas = $mahasiswas->push($testMahasiswa);
 
         // 4. Buat beberapa Kategori
-        $categories = Category::factory(5)->create();
+        
+        $this->call([
+            CategorySeeder::class,
+        ]);
+        $categories = Category::all();
 
         // 5. Buat Aspirasi beserta relasinya
         foreach ($allMahasiswas as $user) {
